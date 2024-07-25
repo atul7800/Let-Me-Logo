@@ -1,2 +1,2 @@
 # Logo-Works
-Logo creation website.
+A Logo creation website.
