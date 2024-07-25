@@ -10,5 +10,5 @@ Currently, two official plugins are available:
 =======
 # Let-Me-Logo
 
-A Logo creation website.
+A Logo creation website using React JS and shadcn ui.
 >>>>>>> b256265e7c5d627eca4e47adafd3d5230e6a241e
