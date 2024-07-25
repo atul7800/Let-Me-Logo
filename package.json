@@ -23,4 +23,8 @@
     "eslint-plugin-react-refresh": "^0.4.7",
     "vite": "^5.3.4"
   }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> b256265e7c5d627eca4e47adafd3d5230e6a241e
