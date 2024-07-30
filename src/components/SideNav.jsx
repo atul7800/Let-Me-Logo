@@ -20,7 +20,7 @@ function SideNav({ setSelectedIndex }) {
     },
   ];
 
-  const [activeIndex, setActiveIndex] = useState();
+  const [activeIndex, setActiveIndex] = useState(0);
 
   return (
     <div className="h-screen border shadow-sm">

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Slider } from "./ui/slider";
 import ColorPickerComponent from "./ColorPickerComponent";
 
@@ -8,19 +8,6 @@ function BackgroundController() {
   const [color, setColor] = useState("#000");
   const [hexValueOfSelectedColor, setHexValueOfSelectedColor] =
     useState("#fff");
-  const storageValue = JSON.parse(localStorage.getItem("value"));
-
-  useEffect(() => {
-    const updatedValue = {
-      ...storageValue,
-      bgRounded: rounded,
-      bgPadding: padding,
-      bgColor: color,
-      bgColorHexValue: hexValueOfSelectedColor,
-    };
-
-    localStorage.setItem("value", JSON.stringify(updatedValue));
-  }, [rounded, padding, color, hexValueOfSelectedColor]);
 
   return (
     <div>

@@ -1,15 +1,28 @@
 import { Smile } from "lucide-react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Slider } from "./ui/slider";
 import ColorPickerComponent from "./ColorPickerComponent";
-import { useColorPicker } from "react-best-gradient-color-picker";
 
 function IconController() {
   const [size, setSize] = useState(280);
   const [rotate, setRotate] = useState(0);
-  const [color, setColor] = useState("rgba(255,255,255,1)");
-  const { valueToHex } = useColorPicker(color, setColor);
-  const selectedColorHex = valueToHex();
+  const [color, setColor] = useState("#fff");
+  const [hexValueOfSelectedColor, setHexValueOfSelectedColor] =
+    useState("#fff");
+  const storageValue = JSON.parse(localStorage.getItem("value"));
+
+  useEffect(() => {
+    const updatedValue = {
+      ...storageValue,
+      iconSize: size,
+      iconRotate: rotate,
+      iconColor: color,
+      iconColorHexValue: hexValueOfSelectedColor,
+      icon: "smile",
+    };
+
+    localStorage.setItem("value", JSON.stringify(updatedValue));
+  }, [size, rotate, color, hexValueOfSelectedColor]);
 
   return (
     <div>
@@ -50,11 +63,12 @@ function IconController() {
       {/* Color Picker */}
       <div className="justify-start py-2">
         <label htmlFor="" className="flex items-center justify-between py-2">
-          Icon color <span>{selectedColorHex}</span>
+          Icon color
+          <span>{hexValueOfSelectedColor}</span>
         </label>
         <ColorPickerComponent
-          color={color}
-          setColor={setColor}
+          selectedColor={(color) => setColor(color)}
+          setHexValueOfSelectedColor={setHexValueOfSelectedColor}
           hideController={true}
         />
       </div>
