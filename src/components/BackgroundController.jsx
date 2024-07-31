@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Slider } from "./ui/slider";
 import ColorPickerComponent from "./ColorPickerComponent";
+import { UpdateStorageContext } from "./UpdateStorageContext";
 
 function BackgroundController() {
   const [rounded, setRounded] = useState(0);
@@ -9,6 +10,7 @@ function BackgroundController() {
   const [hexValueOfSelectedColor, setHexValueOfSelectedColor] =
     useState("#fff");
   const storageValue = JSON.parse(localStorage.getItem("value"));
+  const { updateStorage, setUpdateStorage } = useContext(UpdateStorageContext);
 
   useEffect(() => {
     const updatedValue = {
@@ -19,6 +21,7 @@ function BackgroundController() {
       bgColorHexValue: hexValueOfSelectedColor,
     };
 
+    setUpdateStorage(updatedValue);
     localStorage.setItem("value", JSON.stringify(updatedValue));
   }, [rounded, padding, color, hexValueOfSelectedColor]);
 
@@ -34,7 +37,7 @@ function BackgroundController() {
             setRounded(event[0]);
           }}
           defaultValue={[0]}
-          max={512}
+          max={230}
           step={1}
         />
       </div>
