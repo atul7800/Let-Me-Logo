@@ -7,9 +7,11 @@ function LogoPreview() {
 
   useEffect(() => {
     const storageData = JSON.parse(localStorage.getItem("value"));
-    console.log(updateStorage);
+
     setStorageValue(storageData);
   }, [updateStorage]);
+
+  console.log(storageValue?.bgColor);
 
   return (
     <div className="flex h-screen items-center justify-center">
@@ -18,7 +20,7 @@ function LogoPreview() {
           className="h-full w-full"
           style={{
             borderRadius: storageValue?.bgRounded,
-            backgroundColor: storageValue?.bgColor,
+            background: storageValue?.bgColor,
           }}
         ></div>
       </div>

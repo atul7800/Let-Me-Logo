@@ -59,7 +59,7 @@ function BackgroundController() {
         {/* Background Color Picker */}
         <div className="justify-start py-2">
           <label htmlFor="" className="flex items-center justify-between py-2">
-            Background color
+            Bg color
             <span>{hexValueOfSelectedColor}</span>
           </label>
           <ColorPickerComponent
