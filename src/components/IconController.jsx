@@ -18,6 +18,9 @@ function IconController() {
   const [hexValueOfSelectedColor, setHexValueOfSelectedColor] = useState(
     storageValue ? storageValue?.iconColorHexValue : "#fff",
   );
+  const [newIcon, setNewIcon] = useState(
+    storageValue ? storageValue?.icon : "Smile",
+  );
 
   useEffect(() => {
     const updatedValue = {
@@ -26,16 +29,16 @@ function IconController() {
       iconRotate: rotate,
       iconColor: color,
       iconColorHexValue: hexValueOfSelectedColor,
-      icon: "Smile",
+      icon: newIcon,
     };
 
     setUpdateStorage(updatedValue);
     localStorage.setItem("value", JSON.stringify(updatedValue));
-  }, [size, rotate, color, hexValueOfSelectedColor]);
+  }, [size, rotate, color, hexValueOfSelectedColor, newIcon]);
 
   return (
     <div>
-      <IconList />
+      <IconList iconSelected={(selectedIcon) => setNewIcon(selectedIcon)} />
 
       {/* Icon size */}
       <div className="justify-start py-2">
@@ -47,7 +50,7 @@ function IconController() {
             setSize(event[0]);
           }}
           defaultValue={[`${storageValue ? storageValue?.iconSize : 280}`]}
-          max={512}
+          max={500}
           step={1}
         />
       </div>
@@ -71,7 +74,7 @@ function IconController() {
       <div className="justify-start py-2">
         <label htmlFor="" className="flex items-center justify-between py-2">
           Icon color
-          <span>{hexValueOfSelectedColor}</span>
+          {/* <span>{hexValueOfSelectedColor}</span> */}
         </label>
         <ColorPickerComponent
           selectedColor={(color) => setColor(color)}
