@@ -4,13 +4,20 @@ import ColorPickerComponent from "./ColorPickerComponent";
 import { UpdateStorageContext } from "./UpdateStorageContext";
 
 function BackgroundController() {
-  const [rounded, setRounded] = useState(0);
-  const [padding, setPadding] = useState(0);
-  const [color, setColor] = useState("#000");
-  const [hexValueOfSelectedColor, setHexValueOfSelectedColor] =
-    useState("#fff");
   const storageValue = JSON.parse(localStorage.getItem("value"));
   const { updateStorage, setUpdateStorage } = useContext(UpdateStorageContext);
+  const [rounded, setRounded] = useState(
+    storageValue ? storageValue?.bgRounded : 0,
+  );
+  const [padding, setPadding] = useState(
+    storageValue ? storageValue?.bgPadding : 0,
+  );
+  const [color, setColor] = useState(
+    storageValue ? storageValue?.bgColor : "#000",
+  );
+  const [hexValueOfSelectedColor, setHexValueOfSelectedColor] = useState(
+    storageValue ? storageValue?.bgColorHexValue : "#fff",
+  );
 
   useEffect(() => {
     const updatedValue = {
@@ -36,7 +43,7 @@ function BackgroundController() {
           onValueChange={(event) => {
             setRounded(event[0]);
           }}
-          defaultValue={[0]}
+          defaultValue={[`${storageValue ? storageValue?.bgRounded : 0}`]}
           max={230}
           step={1}
         />
@@ -51,7 +58,7 @@ function BackgroundController() {
           onValueChange={(event) => {
             setPadding(event[0]);
           }}
-          defaultValue={[20]}
+          defaultValue={[`${storageValue ? storageValue?.bgPadding : 20}`]}
           max={200}
           step={1}
         />
