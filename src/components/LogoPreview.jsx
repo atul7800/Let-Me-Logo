@@ -6,7 +6,8 @@ import html2canvas from "html2canvas";
 function LogoPreview({ downloadLogo }) {
   const [storageValue, setStorageValue] = useState();
   const { updateStorage } = useContext(UpdateStorageContext);
-  const BASE_URL = "https://logoexpress.tubeguruji.com";
+  // const BASE_URL = "https://logoexpress.tubeguruji.com";
+  const BASE_URL = import.meta.env.VITE_API_BASE_URL || "";
   const Icon = ({ name, size, color, rotate }) => {
     const LucidIcon = icons[name];
     if (!LucidIcon) {
@@ -62,7 +63,8 @@ function LogoPreview({ downloadLogo }) {
         >
           {storageValue?.icon?.includes(".png") ? (
             <img
-              src={"/png/" + storageValue?.icon}
+              // src={"/png/" + storageValue?.icon}
+              src={`${BASE_URL}/png/${storageValue?.icon}`}
               style={{
                 transform: `rotate(${storageValue?.iconRotate}deg)`,
                 width: `${storageValue?.iconSize}px`,

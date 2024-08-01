@@ -19,7 +19,8 @@ function IconList({ iconSelected }) {
     storageValue ? storageValue?.icon : "Smile",
   );
   const [colorIconsList, setColorIconsList] = useState([]);
-  const BASE_URL = "https://logoexpress.tubeguruji.com";
+  // const BASE_URL = "https://logoexpress.tubeguruji.com";
+  const BASE_URL = import.meta.env.VITE_API_BASE_URL || "";
 
   // repeating in LogoPrevie.jsx
   const Icon = ({ name, size, color }) => {
@@ -36,9 +37,10 @@ function IconList({ iconSelected }) {
   }, []);
 
   function getColorIconsList() {
-    axios
-      .get(BASE_URL + "/getIcons.php")
-      .then((response) => setColorIconsList(response.data));
+    axios.get(BASE_URL + "/getIcons.php").then((response) => {
+      setColorIconsList(response.data);
+      console.log(response.data);
+    });
   }
 
   return (
@@ -50,7 +52,8 @@ function IconList({ iconSelected }) {
           className="my-2 flex h-[50px] w-[50px] cursor-pointer items-center justify-center rounded-md bg-gray-200 p-3"
         >
           {newIcon?.includes(".png") ? (
-            <img src={BASE_URL + "/png/" + newIcon} />
+            // <img src={BASE_URL + "/png/" + newIcon} />
+            <img src={`${BASE_URL}/png/${newIcon}`} />
           ) : (
             <Icon name={newIcon} color={"#000"} size={30} />
           )}
@@ -86,19 +89,23 @@ function IconList({ iconSelected }) {
                 </TabsContent>
                 <TabsContent value="color-icon">
                   <div className="grid h-[450px] grid-cols-2 gap-5 overflow-auto p-5 pl-1 pt-2 md:grid-cols-4 lg:grid-cols-5">
-                    {colorIconsList.map((iconItem, index) => (
-                      <div
-                        key={index}
-                        onClick={() => {
-                          iconSelected(iconItem);
-                          setOpenDialog(false);
-                          setNewIcon(iconItem);
-                        }}
-                        className="flex cursor-pointer items-center justify-center rounded-sm border p-2"
-                      >
-                        <img src={BASE_URL + "/png/" + iconItem} />
-                      </div>
-                    ))}
+                    {colorIconsList.length > 0 ? (
+                      colorIconsList.map((iconItem, index) => (
+                        <div
+                          key={index}
+                          onClick={() => {
+                            iconSelected(iconItem);
+                            setOpenDialog(false);
+                            setNewIcon(iconItem);
+                          }}
+                          className="flex cursor-pointer items-center justify-center rounded-sm border p-2"
+                        >
+                          <img src={BASE_URL + "/png/" + iconItem} />
+                        </div>
+                      ))
+                    ) : (
+                      <p>No icons available.</p>
+                    )}
                   </div>
                 </TabsContent>
               </Tabs>
